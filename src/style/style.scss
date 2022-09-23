@@ -1,9 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap');
+
 @import '~normalize.css/normalize';
 @import ' ~rfs/scss';
 @import './constants';
+@import './mixins';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Varela Round', sans-serif;
+}
+
+body {
+  @include alignFlex(m, m, c);
+  background: $backgroundColor;
+}
+
+.top {
+  @include alignFlex(m, m, c);
+  height: $top-height;
+  width: 100%;
+  gap: 1rem;
+  .title {
+    position: relative;
+    margin: 0;
+    font-family: 'Rubik', sans-serif;
+    font-size: $titleFontSize;
+    font-style: italic;
+    font-weight: 700;
+    color: $accentColor;
+    transition: 0.3s ease-in-out;
+    @include offsetEffect('BATTLESHIP', $titleOutlineOffset);
+    @include offsetEffectTransition($titleTransition);
+    &:hover {
+      @include hideOffsetEffect();
+      @include stroke-text(1px, rgba($lightColor, $alpha: 0.7));
+      text-shadow: 0 0 3px $accentColor;
+      letter-spacing: 0.2rem;
+    }
+  }
+  .subtitle {
+    color: rgba($lightColor, $alpha: 0.8);
+    font-size: $subtitleFontSize;
+  }
+}
+
+.container {
+  @include alignFlex();
+  position: relative;
+  height: calc(100% - $top-height);
+  width: 100%;
+}
+
+.gameboards {
+  @include alignFlex();
+  position: relative;
+  gap: 3rem;
+  > div {
+    @include alignFlex(m, m, c);
+  }
+}
+#player-board,
+#computer-board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  border: $cellBorderWidth/2 $cellBorderColor solid;
+  .cell {
+    border: $cellBorderWidth/2 $cellBorderColor solid;
+    width: $cellBorderSize;
+    height: $cellBorderSize;
+    background-color: $cellColor;
+  }
+  .cell.hover {
+    background-color: $cellHoverColor;
+    // position: relative;
+    // &::before {
+    //   top: 20%;
+    //   // left: 20%;
+    //   content: "";
+    //   position: absolute;
+    //   height: 60%;
+    //   width: 120%;
+    //   background-color: red;
+    //   z-index: 10;
+    // }
+  }
+  .cell.water {
+    background-color: $waterColor;
+  }
+  .cell.ship {
+    background-color: $shipColor;
+  }
+  .cell.ship.hover {
+    background-color: $shipHoverColor;
+  }
+  .cell.hit {
+    background-color: $hitShipColor;
+  }
+  .cell.ship.sunk {
+    background-color: $sunkShipColor;
+  }
+}
+
+.indicator {
+  @include alignFlex(m, e, r);
+  height: $indicatorFontSize + $indicatorSpacing;
+  .text {
+    position: relative;
+    padding: 0 0.3rem;
+    background: linear-gradient(
+      transparent 50%,
+      rgba($accentColor, $alpha: 0.2) 50%
+    );
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: $indicatorFontSize;
+    color: $lightColor;
+  }
+}
+
+#computer-board + .indicator .text::after {
+  content: '(yeah sure...)';
+  position: absolute;
+  color: rgba($lightColor, $alpha: 0.1);
+  transform: translate(15%, -50%);
+  font-size: 0.6em;
+  width: max-content;
+  top: 50%;
+}
+
+.help {
+  position: absolute;
+  left: $helpIconSpacing;
+  bottom: $helpIconSpacing;
+  > object {
+    width: $helpIconSize;
+    height: $helpIconSize;
+  }
+}
+
+.controls {
+  @include alignFlex(m, m, c);
+  width: max-content;
+  position: absolute;
+  bottom: $helpIconSize + $helpIconSpacing;
+  left: $helpIconSpacing + (($helpIconSize - $controlsFontSize) / 2);
+  font-size: $controlsFontSize;
+  gap: $controlsSpacing;
+  color: white;
+  > div {
+    @include alignFlex(s, m, r);
+    width: 100%;
+  }
+  .icon {
+    position: relative;
+    object {
+      position: absolute;
+      width: $controlsFontSize;
+      height: $controlsFontSize;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .right-click,
+  .left-click {
+    margin-left: 0.3rem;
+  }
+}
+
+.computer-marker,
+.player-marker {
+  position: absolute;
+  gap: $markerSpacing;
+  top: 0;
+  .ship-marker {
+    @include alignFlex();
+    div {
+      outline: $markerCellBorderWidth solid $cellBorderColor;
+      width: $markerCellSize;
+      height: $markerCellSize;
+      background-color: $shipColor;
+      transition: 0.3s ease-in-out;
+    }
+  }
+  .ship-marker.player:hover div {
+    background-color: $shipHoverColor;
+  }
+  .ship-marker.selected {
+    position: relative;
+    outline: $markerCellBorderWidth * 3 solid $cellBorderColor;
+    &::before {
+      content: '>';
+      color: wheat;
+      position: absolute;
+      left: -1.2rem;
+      font-weight: 900;
+    }
+    div {
+      background-color: $markerSelectedColor;
+      width: $markerCellSize * 1.07;
+      height: $markerCellSize * 1.07;
+    }
+  }
+  .ship-marker.placed div {
+    background-color: $placedShipColor;
+  }
+  .ship-marker.sunk div {
+    background-color: $sunkShipColor;
+  }
+}
+.computer-marker {
+  @include alignFlex(m, s, c);
+  transform: translate(calc(100% + $markerSpacing), $markerSpacing);
+  right: 0;
+}
+
+.player-marker {
+  div {
+    cursor: pointer;
+  }
+  @include alignFlex(m, e, c);
+  transform: translate(calc(-100% - $markerSpacing), $markerSpacing);
+  left: 0;
 }

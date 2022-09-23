@@ -13,7 +13,9 @@ export default class Gameboard {
       const ship = new Ship(length);
       this.ships.push(ship);
       this.shipsCoords.push(fullCoords);
+      return true;
     }
+    return false;
   }
 
   isPossible(fullCoords) {
@@ -46,10 +48,12 @@ export default class Gameboard {
           JSON.stringify(attackCoords),
         )
       ) {
-        return this.ships[i].hit(attackCoords);
+        this.ships[i].hit(attackCoords);
+        return true;
       }
     }
-    return this.missed.push(attackCoords);
+    this.missed.push(attackCoords);
+    return false;
   }
 
   isEveryShipSunk() {

@@ -1,0 +1,43 @@
+$backgroundColor: #080808;
+$accentColor: #29E03E;
+// e02f29
+// 4cb9c7 
+$lightColor: #F3FAF0;
+
+$top-height: 30%;
+
+$titleFontSize: 3.5rem;
+$subtitleFontSize: 1.2rem;
+$titleOutlineOffset: 0.5rem;
+$titleTransition: 0.3s ease-in-out;
+
+$helpIconSize: 1.5rem;
+$helpIconSpacing: 1rem;
+
+$controlsFontSize: 1rem;
+$controlsSpacing: 0.5rem;
+
+$indicatorFontSize: 1.3rem;
+$indicatorSpacing: 1rem;
+
+$offsetEffectColor: rgba($lightColor, $alpha: 0.2);
+$offsetEffectOutlineWidth: 2px;
+
+$cellBorderColor: $lightColor;
+$cellBorderWidth: 2px;
+$cellBorderSize: 30px;
+
+$markerSpacing: 0.8rem; 
+$markerCellSize: 15px; 
+$markerCellBorderWidth: 1px;
+
+$cellColor: none;
+$cellHoverColor: darkcyan;
+$shipColor: $accentColor;
+$shipHoverColor: rgb(20, 97, 20);
+$hitShipColor: orange;
+$sunkShipColor: red;
+$waterColor: blue;
+
+$markerSelectedColor: rgb(26, 65, 26);
+$placedShipColor: red;

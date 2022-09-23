@@ -1,0 +1,116 @@
+@mixin stroke-text($width, $color) {
+  -webkit-text-stroke-width: $width;
+  -moz-text-stroke-width: $width;
+  -webkit-text-stroke-color: $color;
+  -moz-text-stroke-color: $color;
+}
+
+@mixin alignFlex($horizontal: m, $vertical: m, $direction: r) {
+  display: flex;
+  @if $direction == r {
+    flex-direction: row;
+  }
+  @if $direction == c {
+    flex-direction: column;
+  }
+  @if $direction == rr {
+    flex-direction: row-reverse;
+  }
+  @if $direction == cr {
+    flex-direction: column-reverse;
+  }
+
+  @if $direction == r or $direction == rr {
+    @if $horizontal == m {
+      justify-content: center;
+    }
+    @if $horizontal == s {
+      justify-content: flex-start;
+    }
+    @if $horizontal == e {
+      justify-content: flex-end;
+    }
+
+    @if $vertical == m {
+      align-items: center;
+    }
+    @if $vertical == s {
+      align-items: flex-start;
+    }
+    @if $vertical == e {
+      align-items: flex-end;
+    }
+  } @else if $direction == c or $direction == cr {
+    @if $horizontal == m {
+      justify-content: center;
+    }
+    @if $horizontal == s {
+      justify-content: flex-start;
+    }
+    @if $horizontal == e {
+      justify-content: flex-end;
+    }
+
+    @if $vertical == m {
+      align-items: center;
+    }
+    @if $vertical == s {
+      align-items: flex-start;
+    }
+    @if $vertical == e {
+      align-items: flex-end;
+    }
+  }
+}
+
+@mixin offsetEffect($content, $offset) {
+  &::before {
+    @if $content == '' or $content == '' {
+      outline: $offsetEffectOutlineWidth $offsetEffectColor solid;
+    } @else {
+      @include stroke-text($offsetEffectOutlineWidth, $offsetEffectColor);
+    }
+    content: $content;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    background: transparent;
+    transform: translate($offset, $offset);
+    z-index: -1;
+    // transition: 0.3s ease-in-out;
+  }
+  &::after {
+    @if $content == '' or $content == '' {
+      background: $offsetEffectColor;
+    } @else {
+      color: $offsetEffectColor;
+    }
+    content: $content;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translate(calc(-100% - $offset), -$offset);
+    z-index: -1;
+    // transition: 0.3s ease-in-out;
+  }
+}
+
+@mixin offsetEffectTransition($transition) {
+  &::before {
+    transition: $transition;
+  }
+  &::after {
+    transition: $transition;
+  }
+}
+
+@mixin hideOffsetEffect() {
+  &::before { 
+    transform: translate(0, 0);
+  }
+  &::after {
+    transform: translate(-100%, 0);
+  }
+}
+  

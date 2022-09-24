@@ -110,6 +110,12 @@ body {
   }
 }
 
+.ready {
+  .cell:hover {
+    background-color: $cellHoverColor;
+  }
+}
+
 .indicator {
   @include alignFlex(m, e, r);
   height: $indicatorFontSize + $indicatorSpacing;
@@ -140,16 +146,16 @@ body {
 
 #computer-board::before {
   content: attr(data-state);
-position: absolute;
-top: 0;
-left: 0;
-// background-color: red;
-color: $lightColor;
-width: 100%;
-transform: translateY(-150%);
-text-align: center;
-font-weight: 700;
-font-size: 1.1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  // background-color: red;
+  color: $lightColor;
+  width: 100%;
+  transform: translateY(-150%);
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
 .help {

@@ -1,8 +1,8 @@
 $backgroundColor: #080808;
-$accentColor: #29E03E;
+$accentColor: #26bd37;
 // e02f29
-// 4cb9c7 
-$lightColor: #F3FAF0;
+// 4cb9c7
+$lightColor: #f3faf0;
 
 $top-height: 30%;
 
@@ -27,17 +27,17 @@ $cellBorderColor: $lightColor;
 $cellBorderWidth: 2px;
 $cellBorderSize: 30px;
 
-$markerSpacing: 0.8rem; 
-$markerCellSize: 15px; 
+$markerSpacing: 0.8rem;
+$markerCellSize: 15px;
 $markerCellBorderWidth: 1px;
 
 $cellColor: none;
-$cellHoverColor: darkcyan;
+$cellHoverColor: rgb(35, 47, 88);
 $shipColor: $accentColor;
 $shipHoverColor: rgb(20, 97, 20);
-$hitShipColor: orange;
-$sunkShipColor: red;
-$waterColor: blue;
+$hitShipColor: rgb(234, 172, 0);
+$sunkShipColor: rgb(234, 101, 0);
+$waterColor: rgb(54, 70, 129);
 
 $markerSelectedColor: rgb(26, 65, 26);
-$placedShipColor: red;
+$placedShipColor: rgb(32, 44, 86);

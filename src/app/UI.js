@@ -24,6 +24,24 @@ export default class UI {
     });
   }
 
+  static animateComputerPlacement() {
+    global.animationFinished = false;
+    const computerBoard = document.getElementById('computer-board');
+    computerBoard.setAttribute('data-state', 'PLACING SHIPS...');
+    let i = 0;
+    const interval = setInterval(() => {
+      const ship = document.querySelector(`.computer[ship='${i}']`);
+      ship.classList.add('placed');
+      i += 1;
+      if (i > 4) {
+        clearInterval(interval);
+        computerBoard.setAttribute('data-state', '');
+        document.querySelector('.subtitle').innerText = 'Let the battle begin!';
+        global.animationFinished = true;
+      }
+    }, 800);
+  }
+
   static renderMarkers(ships) {
     const playerMarker = document.querySelector('.player-marker');
     const computerMarker = document.querySelector('.computer-marker');
@@ -32,6 +50,7 @@ export default class UI {
         const ship = document.createElement('div');
         ship.classList.add('ship-marker');
         if (!h) ship.classList.add('player');
+        else ship.classList.add('computer');
         for (let k = 0; k < ships[i]; k += 1) {
           const shipPiece = document.createElement('div');
           ship.setAttribute('ship', i);
@@ -50,7 +69,8 @@ export default class UI {
       if (orientation === 'y' && cellCoords[1] + length > 10) return;
       for (let i = 0; i < length; i += 1) {
         let tempCoords;
-        if (orientation === 'x') tempCoords = [cellCoords[0] + i, cellCoords[1]];
+        if (orientation === 'x')
+          tempCoords = [cellCoords[0] + i, cellCoords[1]];
         else tempCoords = [cellCoords[0], cellCoords[1] + i];
         const sCoords = JSON.stringify(tempCoords).replaceAll(',', ', ');
         const targetCell = document.querySelector(`[coords='${sCoords}']`);

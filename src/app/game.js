@@ -26,8 +26,10 @@ export default class Game {
       const length = global.shipsToPlace[global.selectedShip];
       const coords = getCoordsAttr(cell);
       const x = this.player.placeShip(length, global.orientation, coords);
+      document.querySelector('.subtitle').innerText = '';
       if (this.player.placedShips === global.shipsToPlace.length) {
         global.allShipsPlaced = true;
+        UI.animateComputerPlacement();
       }
       UI.renderPlayerShips(this.player.gameboard.shipsCoords);
       if (x) {
@@ -71,7 +73,11 @@ export default class Game {
   }
 
   static makePlayerPlay(target) {
-    if (global.allShipsPlaced && global.isPLayerTurn) {
+    if (
+      global.allShipsPlaced &&
+      global.isPLayerTurn &&
+      global.animationFinished
+    ) {
       const cellCoords = getCoordsAttr(target);
       if (this.computer.gameboard.receiveAttack(cellCoords)) {
         UI.renderHit(target);

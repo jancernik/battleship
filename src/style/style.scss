@@ -48,6 +48,7 @@ body {
   .subtitle {
     color: rgba($lightColor, $alpha: 0.8);
     font-size: $subtitleFontSize;
+    height: $subtitleFontSize;
   }
 }
 
@@ -69,6 +70,7 @@ body {
 #player-board,
 #computer-board {
   display: grid;
+  position: relative;
   grid-template-columns: repeat(10, 1fr);
   border: $cellBorderWidth/2 $cellBorderColor solid;
   .cell {
@@ -134,6 +136,20 @@ body {
   font-size: 0.6em;
   width: max-content;
   top: 50%;
+}
+
+#computer-board::before {
+  content: attr(data-state);
+position: absolute;
+top: 0;
+left: 0;
+// background-color: red;
+color: $lightColor;
+width: 100%;
+transform: translateY(-150%);
+text-align: center;
+font-weight: 700;
+font-size: 1.1rem;
 }
 
 .help {

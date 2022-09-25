@@ -110,7 +110,12 @@ body {
   }
 }
 
-.ready {
+#computer-board.selected,
+#player-board.selected {
+  outline: $cellBorderWidth * 2 $cellBorderColor solid;
+}
+
+#computer-board.selected {
   .cell:hover {
     background-color: $cellHoverColor;
   }

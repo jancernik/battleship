@@ -5,6 +5,7 @@ export default class Gameboard {
     this.ships = [];
     this.shipsCoords = [];
     this.missed = [];
+    console.log('this.ships: ', this.ships);
   }
 
   placeShip(length, orientation, coords) {
@@ -45,7 +46,7 @@ export default class Gameboard {
     for (let i = 0; i < this.shipsCoords.length; i += 1) {
       if (
         JSON.stringify(this.shipsCoords[i]).includes(
-          JSON.stringify(attackCoords),
+          JSON.stringify(attackCoords)
         )
       ) {
         this.ships[i].hit(attackCoords);

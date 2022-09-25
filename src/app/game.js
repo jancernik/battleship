@@ -79,12 +79,18 @@ export default class Game {
       global.animationFinished
     ) {
       const cellCoords = getCoordsAttr(target);
+      if (target.classList.contains('water')) return;
+      if (target.classList.contains('hit')) return;
       if (this.computer.gameboard.receiveAttack(cellCoords)) {
         UI.renderHit(target);
       } else {
         UI.renderWater(target);
       }
       global.isPLayerTurn = false;
+      const computerBoard = document.getElementById('computer-board');
+      computerBoard.classList.remove('selected');
+      const playerBoard = document.getElementById('player-board');
+      playerBoard.classList.add('selected');
       setTimeout(this.makeComputerPlay, 600);
     }
   }
@@ -96,5 +102,9 @@ export default class Game {
       UI.renderHit(target);
     } else UI.renderWater(target);
     global.isPLayerTurn = true;
+    const playerBoard = document.getElementById('player-board');
+    playerBoard.classList.remove('selected');
+    const computerBoard = document.getElementById('computer-board');
+    computerBoard.classList.add('selected');
   }
 }

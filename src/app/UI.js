@@ -38,7 +38,7 @@ export default class UI {
         computerBoard.setAttribute('data-state', '');
         document.querySelector('.subtitle').innerText = 'Let the battle begin!';
         global.animationFinished = true;
-        computerBoard.classList.add('ready');
+        computerBoard.classList.add('selected');
       }
     }, 800);
   }
